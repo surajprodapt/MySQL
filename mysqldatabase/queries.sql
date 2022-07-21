@@ -168,7 +168,7 @@ SELECT
 FROM 
     employees
 ORDER by
-    jobTitle 
+    jobTitle; 
 
 --orderdetails
 
@@ -252,13 +252,13 @@ ORDER by
 
    
 SELECT
-      firstName
-      lastName
+      firstName,
+      lastName,
       officeCode
    FROM
       employees
    WHERE
-      officeCode BETWEEN 1 AND 3;
+      officeCode BETWEEN 1 AND 3
    ORDER BY officeCode;
 
 --Like Clause
@@ -284,3 +284,119 @@ FROM
 WHERE officeCode IN (1,2,3)
 ORDER BY
 officeCode;
+
+
+--SELECT
+--     field_name
+-- FROM
+--     table_name
+-- LIMIT [offset,]row_count;
+
+SELECT
+     customerNumber,
+     customerName,
+     creditLimit
+FROM
+     customers
+ORDER BY creditLimit DESC
+LIMIT 5;
+
+SELECT
+     customerNumber,
+     customerName,
+     creditLimit
+FROM
+     customers
+ORDER BY creditLimit ASC
+LIMIT 6;
+
+--pagination queries
+
+SELECT
+     customerNumber,
+     customerName
+FROM
+     customers
+ORDER BY creditLimit DESC
+LIMIT 5;
+
+--this query returns 10row
+SELECT
+     customerNumber,
+     customerName
+FROM
+     customers
+ORDER BY customerName DESC
+LIMIT 10, 10; 
+
+--
+SELECT DISTINCT
+   `state`
+FROM
+   `customers`
+WHERE
+`state` IS NOT NULL
+LIMIT 5;
+
+
+-------
+
+SELECT
+    
+    CONCAT_WS(', ',lastName,firstName) AS 'Full Name'
+FROM 
+employees;
+
+--
+
+SELECT
+    orderNumber,
+    SUM(quantityOrdered * priceEach) AS total
+    FROM
+    orderdetails
+    ORDER BY
+    orderNumber
+    HAVING
+      total > 60000;
+
+
+--inner join
+-- SELECT column_name(s)
+-- FROM table1
+-- INNER JOIN table2
+-- ON table1.column_name = table2.column_name;
+
+
+SELECT 
+    productCode
+FROM
+    orderdetails
+INNER JOIN products
+ON orderdetails.productCode=products.productCode;
+
+SELECT orderdetails.productCode, products.productCode
+FROM orderdetails
+INNER JOIN products ON orderdetails.productCode=products.productCode;
+
+--left join
+
+SELECT orderdetails.productCode, products.productCode
+FROM orderdetails
+LEFT JOIN products ON orderdetails.productCode=products.productCode
+
+--right join
+
+SELECT orderdetails.productCode, products.productCode
+FROM orderdetails
+Right JOIN products ON orderdetails.productCode=products.productCode
+
+--self join
+
+SELECT 
+    CONCAT(m.lastName, ',' , m.firstName) AS Mangager,
+    CONCAT(m.lastName, ',' , m.firstName) AS 'Direct report'
+    FROM employee e
+    INNER JOIN employees m ONm.employeeNumber = e.repoortsTo
+    ORDER BY Manager;
+
+
