@@ -399,4 +399,6 @@ SELECT
     INNER JOIN employees m ONm.employeeNumber = e.repoortsTo
     ORDER BY Manager;
 
-
+  --view
+   CREATE VIEW Suraj AS
+   SELECT lastName,firstName FROM employees WHERE employeeNumber >1100;
